@@ -148,7 +148,7 @@ static const uint32_t BLAKE2S_SIGMA_host[10][16] =
 	a += b + key[idx]; \
 	d = ROTR32(d^a, 16); \
 	c += d; b = ROTR32(b^c, 12); \
-	idx = BLAKE2S_SIGMA_host[idx0][idx1+1]; \
+	idx = BLAKE2S_SIGMA_host[idx0][idx1 + 1]; \
 	a += b + key[idx]; \
 	d = ROTR32(d^a, 8); \
 	c += d; b = ROTR32(b^c, 7); \
