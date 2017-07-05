@@ -291,6 +291,7 @@ extern int scanhash_neoscrypt(int thr_id, struct work *work, uint32_t max_nonce,
 extern int scanhash_sia(int thr_id, struct work *work, uint32_t max_nonce, unsigned long *hashes_done);
 extern int scanhash_myriad(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done);
 extern int scanhash_veltor(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done);
+extern int scanhash_gostd(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done);
 //extern int scanhash_yescrypt(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done);
 
 /* SIA getwork - submit*/
@@ -812,6 +813,7 @@ void neoscrypt(uchar *output, const uchar *input, uint32_t profile);
 void siahash(void *output, const void *input);
 void myriadhash(void *state, const void *input);
 void veltorhash(void *output, const void *input);
+void gostd_hash(void *output, const void *input);
 //void yescrypt_hash(void *output, const void *input);
 #ifdef __cplusplus
 }

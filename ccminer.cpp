@@ -218,6 +218,7 @@ Options:\n\
   			blakecoin   Blake256-8rounds (BLC)\n\
 			vcash       Blake256-8rounds (XVC)\n\
 			blake2s	    Blake2s          (NEVA/XVG)\n\
+			gostd		GOSTd (GOSTcoin)\n\
 			keccak	    keccak256        (Maxcoin)\n\
 			lyra2                        (LyraBar)\n\
 			lyra2v2                      (VertCoin)\n\
@@ -1906,6 +1907,7 @@ static void *miner_thread(void *userdata)
 				case ALGO_X11EVO:
 				case ALGO_X13:
 				case ALGO_WHIRLPOOL:
+				case ALGO_GOSTD:
 					minmax = 0x400000;
 					break;
 				case ALGO_X14:
@@ -2032,7 +2034,10 @@ static void *miner_thread(void *userdata)
 				break;
 			case ALGO_VELTOR:
 				rc = scanhash_veltor(thr_id, &work, max_nonce, &hashes_done);
-				break;			
+				break;
+			case ALGO_GOSTD:
+				rc = scanhash_gostd(thr_id, &work, max_nonce, &hashes_done);
+			break;			
 			case ALGO_X13:
 				rc = scanhash_x13(thr_id, &work, max_nonce, &hashes_done);
 				break;
