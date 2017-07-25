@@ -173,7 +173,8 @@ extern "C" int scanhash_skunk(int thr_id, struct work* work, uint32_t max_nonce,
 
 	*hashes_done = pdata[19] - first_nonce;
 
-	return 0;
+	// moonrk return 0;
+	return rc;
 }
 
 // cleanup

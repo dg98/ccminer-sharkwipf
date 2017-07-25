@@ -40,6 +40,7 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 			neoscrypt/neoscrypt-cpu.c neoscrypt/cuda_neoscrypt.cu \
 			neoscrypt/neoscrypt.cu \
 			skein/skein.cu skein/skein2.cu \
+			skunk/skunk.cu \
 			nist5/cuda_nist5.cu \
 			quark/cuda_keccak_skein512.cu \
 			quark/cuda_quark_jh512.cu quark/cuda_quark_blake512.cu quark/cuda_quark_groestl512.cu quark/cuda_quark_skein512.cu \

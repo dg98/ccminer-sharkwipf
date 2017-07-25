@@ -88,6 +88,9 @@
     <Filter Include="Source Files\CUDA\streebog">
       <UniqueIdentifier>{8433e87e-02db-4d16-b07b-daa99d116867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CUDA\skunk">
+      <UniqueIdentifier>{a626332d-7b1d-4dd1-a6dc-ed5d98bd246f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="compat\jansson\dump.c">
@@ -635,7 +638,7 @@
       <Filter>Source Files\CUDA\x15</Filter>
     </CudaCompile>
     <CudaCompile Include="skunk\skunk.cu">
-      <Filter>Source Files\CUDA</Filter>
+      <Filter>Source Files\CUDA\skunk</Filter>
     </CudaCompile>
     <CudaCompile Include="x13\cuda_x13_fugue512.cu">
       <Filter>Source Files\CUDA\x13</Filter>
