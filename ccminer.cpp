@@ -3370,7 +3370,7 @@ int main(int argc, char *argv[])
 	else
 		strcpy(comment_toolkit, "Not recommended prefer 7.5");
 		
-	printf("*** " PROGRAM_NAME " " PACKAGE_VERSION " for nVidia GPUs from alexis78@github ***\n");
+	printf("*** " PROGRAM_NAME " " PACKAGE_VERSION " for nVidia GPUs from moonrk@github ***\n");
 #ifdef _MSC_VER
 	printf("*** Built with VC++ 2013 and nVidia CUDA SDK %d.%d (%s)\n\n",
 #else

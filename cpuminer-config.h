@@ -165,7 +165,7 @@
 #define PACKAGE_TARNAME "ccminer"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "https://github.com/alexis78/ccminer"
+#define PACKAGE_URL "https://github.com/moonrk/ccminer"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "alexis-1.0+moonrk1"
