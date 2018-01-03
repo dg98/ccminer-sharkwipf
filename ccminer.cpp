@@ -219,7 +219,7 @@ Options:\n\
 			vcash       Blake256-8rounds (XVC)\n\
 			blake2s	    Blake2s          (NEVA/XVG)\n\
 			keccak      keccak256        (Maxcoin)\n\
-			hsr         X13+SM3          (Hshare)\n\
+			hsr         X13+SM3          (Bitcoin Diamond)\n\
 			lyra2                        (LyraBar)\n\
 			lyra2v2                      (VertCoin)\n\
 			skein       Skein SHA2       (AUR/DGB/SKC)\n\
@@ -3425,8 +3425,8 @@ int main(int argc, char *argv[])
 	char comment_toolkit[30];
 	if(((int)(CUDART_VERSION/1000)==7) && ((int)((CUDART_VERSION % 1000)/10)==5))
 		strcpy(comment_toolkit, "Recommended");
-	else
-		strcpy(comment_toolkit, "Not recommended prefer 7.5");
+//	else
+//		strcpy(comment_toolkit, "Not recommended prefer 7.5");
 		
 	printf("*** " PROGRAM_NAME " " PACKAGE_VERSION " for nVidia GPUs from alexis78@github ***\n");
 	if (!opt_quiet) {
@@ -3438,7 +3438,10 @@ int main(int argc, char *argv[])
 			CUDART_VERSION/1000, (CUDART_VERSION % 1000)/10, comment_toolkit);
 		printf("*** Based on tpruvot@github ccminer\n");
 		printf("*** Originally based on Christian Buchner and Christian H. project\n");
-		printf("*** Include some of the work of djm34, sp, tsiv and klausT.\n\n");
+		printf("*** Include some of the work of djm34, sp, tsiv, klausT, and ComputerCraftr.\n\n");
+		printf("*** Donations greatly appreciated:\n");
+		printf("*** BCH: 1AX8LoRRTVEqb6xnB1UTjN99DMVFi7aoR8\n");
+		printf("*** BCD: 1J5krSwGRh9vqN3xas2CepWo6QbfdFfD7E\n\n");
 	}
 
 	rpc_user = strdup("");
