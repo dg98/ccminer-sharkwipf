@@ -3425,8 +3425,8 @@ int main(int argc, char *argv[])
 	char comment_toolkit[30];
 	if(((int)(CUDART_VERSION/1000)==7) && ((int)((CUDART_VERSION % 1000)/10)==5))
 		strcpy(comment_toolkit, "Recommended");
-//	else
-//		strcpy(comment_toolkit, "Not recommended prefer 7.5");
+	else
+		strcpy(comment_toolkit, "Acceptable");
 		
 	printf("*** " PROGRAM_NAME " " PACKAGE_VERSION " for nVidia GPUs from alexis78@github ***\n");
 	if (!opt_quiet) {
