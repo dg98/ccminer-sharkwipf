@@ -219,7 +219,8 @@ Options:\n\
 			vcash       Blake256-8rounds (XVC)\n\
 			blake2s	    Blake2s          (NEVA/XVG)\n\
 			keccak      keccak256        (Maxcoin)\n\
-			hsr         X13+SM3          (Bitcoin Diamond)\n\
+			hsr         X13+SM3          (Hshare)\n\
+			bcd         X13-luffa+sm3    (Bitcoin Diamond)\n\
 			lyra2                        (LyraBar)\n\
 			lyra2v2                      (VertCoin)\n\
 			skein       Skein SHA2       (AUR/DGB/SKC)\n\
@@ -1935,6 +1936,7 @@ static void *miner_thread(void *userdata)
 					break;
 				case ALGO_C11:
 				case ALGO_HSR:
+				case ALGO_BCD:
 				case ALGO_X11:
 				case ALGO_X11EVO:
 				case ALGO_X13:
@@ -2062,6 +2064,9 @@ static void *miner_thread(void *userdata)
 				break;
 			case ALGO_HSR:
 				rc = scanhash_hsr(thr_id, &work, max_nonce, &hashes_done);
+				break;
+			case ALGO_BCD:
+				rc = scanhash_bcd(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_SIB:
 				rc = scanhash_sib(thr_id, &work, max_nonce, &hashes_done);

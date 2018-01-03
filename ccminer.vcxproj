@@ -415,6 +415,7 @@
       <MaxRegCount>72</MaxRegCount>
     </CudaCompile>
     <CudaCompile Include="x13\hsr.cu" />
+    <CudaCompile Include="x13\bcd.cu" />
     <CudaCompile Include="x13\x13.cu" />
     <CudaCompile Include="x14\x14.cu" />
     <CudaCompile Include="x14\cuda_x14_shabal512.cu" />

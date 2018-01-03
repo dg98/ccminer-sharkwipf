@@ -62,9 +62,9 @@ over competing AMD (OpenCL Only) implementations.
 We did not take a big effort on improving usability, so please set
 your parameters carefuly.
 
-THIS PROGRAMM IS PROVIDED "AS-IS", USE IT AT YOUR OWN RISK!
+THIS PROGRAM IS PROVIDED "AS-IS", USE IT AT YOUR OWN RISK!
 
-If you're interessted and read the source-code, please excuse
+If you're interested and read the source-code, please excuse
 that the most of our comments are in german.
 
 >>> Command Line Interface <<<
@@ -91,7 +91,7 @@ its command line interface and options.
 			sib         X11+gost         (Sibcoin)
 			x11evo      Permuted x11     (Revolver)
 			x13         X13              (MaruCoin)
-			hsr         X13-luffa+sm3    (Bitcoin Diamond)
+			bcd         X13-luffa+sm3    (Bitcoin Diamond)
 			x14         X14              (BernCoin)
 			x15         X15              (Joincoin)
 			x17         X17              (XVG)

@@ -2151,6 +2151,9 @@ void print_hash_tests(void){
 
 	hsr_hash(&hash[0], &buf[0]);
 	printpfx("hsr", hash);
+
+	bcd_hash(&hash[0], &buf[0]);
+	printpfx("bcd", hash);
 	
 	lyra2re_hash(&hash[0], &buf[0]);
 	printpfx("lyra2", hash);

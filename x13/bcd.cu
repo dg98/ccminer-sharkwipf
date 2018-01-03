@@ -1,5 +1,5 @@
 /*
-* XSR algorithm
+* BCD algorithm
 */
 extern "C"
 {
@@ -10,7 +10,6 @@ extern "C"
 #include "sph/sph_jh.h"
 #include "sph/sph_keccak.h"
 
-#include "sph/sph_luffa.h"
 #include "sph/sph_cubehash.h"
 #include "sph/sph_shavite.h"
 #include "sph/sph_simd.h"
@@ -35,8 +34,8 @@ static uint32_t *h_resNonce[MAX_GPUS];
 extern void sm3_cuda_hash_64(int thr_id, uint32_t threads, uint32_t *d_hash, int order);
 extern void x13_hamsi_fugue512_cpu_hash_64_final(int thr_id, uint32_t threads, uint32_t *d_hash, uint32_t *d_resNonce, const uint64_t target);
 
-// HSR CPU Hash
-extern "C" void hsr_hash(void *output, const void *input)
+// BCD CPU Hash
+extern "C" void bcd_hash(void *output, const void *input)
 {
 	sph_blake512_context ctx_blake;
 	sph_bmw512_context ctx_bmw;
@@ -44,7 +43,6 @@ extern "C" void hsr_hash(void *output, const void *input)
 	sph_jh512_context ctx_jh;
 	sph_keccak512_context ctx_keccak;
 	sph_skein512_context ctx_skein;
-	sph_luffa512_context ctx_luffa;
 	sph_cubehash512_context ctx_cubehash;
 	sph_shavite512_context ctx_shavite;
 	sph_simd512_context ctx_simd;
@@ -80,9 +78,10 @@ extern "C" void hsr_hash(void *output, const void *input)
 	sph_keccak512(&ctx_keccak, (const void*)hash, 64);
 	sph_keccak512_close(&ctx_keccak, (void*)hash);
 
-	sph_luffa512_init(&ctx_luffa);
-	sph_luffa512(&ctx_luffa, (const void*)hash, 64);
-	sph_luffa512_close(&ctx_luffa, (void*)hash);
+	sm3_init(&ctx_sm3);
+	sm3_update(&ctx_sm3, (const unsigned char*)hash, 64);
+	memset(hash, 0, sizeof hash);
+	sm3_close(&ctx_sm3, (void*)hash);
 
 	sph_cubehash512_init(&ctx_cubehash);
 	sph_cubehash512(&ctx_cubehash, (const void*)hash, 64);
@@ -100,11 +99,6 @@ extern "C" void hsr_hash(void *output, const void *input)
 	sph_echo512(&ctx_echo, (const void*)hash, 64);
 	sph_echo512_close(&ctx_echo, (void*)hash);
 
-	sm3_init(&ctx_sm3);
-	sm3_update(&ctx_sm3, (const unsigned char*)hash, 64);
-	memset(hash, 0, sizeof hash);
-	sm3_close(&ctx_sm3, (void*)hash);
-
 	sph_hamsi512_init(&ctx_hamsi);
 	sph_hamsi512(&ctx_hamsi, (const void*)hash, 64);
 	sph_hamsi512_close(&ctx_hamsi, (void*)hash);
@@ -118,7 +112,7 @@ extern "C" void hsr_hash(void *output, const void *input)
 
 static bool init[MAX_GPUS] = { 0 };
 
-extern "C" int scanhash_hsr(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done)
+extern "C" int scanhash_bcd(int thr_id, struct work* work, uint32_t max_nonce, unsigned long *hashes_done)
 {
 	const int dev_id = device_map[thr_id];
 
@@ -174,10 +168,9 @@ extern "C" int scanhash_hsr(int thr_id, struct work* work, uint32_t max_nonce, u
 		quark_skein512_cpu_hash_64(thr_id, throughput, NULL, d_hash[thr_id]);
 		quark_jh512_cpu_hash_64(thr_id, throughput, NULL, d_hash[thr_id]);
 		quark_keccak512_cpu_hash_64(thr_id, throughput, NULL, d_hash[thr_id]);
-		x11_luffa512_cpu_hash_64(thr_id, throughput, d_hash[thr_id]);
+		sm3_cuda_hash_64(thr_id, throughput, d_hash[thr_id], 0);
 		x11_cubehash_shavite512_cpu_hash_64(thr_id, throughput, d_hash[thr_id]);
 		x11_simd_echo512_cpu_hash_64(thr_id, throughput, d_hash[thr_id]);
-		sm3_cuda_hash_64(thr_id, throughput, d_hash[thr_id], 0);
 		x13_hamsi_fugue512_cpu_hash_64_final(thr_id, throughput, d_hash[thr_id], d_resNonce[thr_id], *(uint64_t*)&ptarget[6]);
 		cudaMemcpy(h_resNonce[thr_id], d_resNonce[thr_id], NBN*sizeof(uint32_t), cudaMemcpyDeviceToHost);
 
@@ -186,7 +179,7 @@ extern "C" int scanhash_hsr(int thr_id, struct work* work, uint32_t max_nonce, u
 			const uint32_t startNounce = pdata[19];
 			uint32_t vhash64[8];
 			be32enc(&endiandata[19], startNounce + h_resNonce[thr_id][0]);
-			hsr_hash(vhash64, endiandata);
+			bcd_hash(vhash64, endiandata);
 
 			if (vhash64[7] <= Htarg && fulltest(vhash64, ptarget)) {
 				int res = 1;
@@ -198,7 +191,7 @@ extern "C" int scanhash_hsr(int thr_id, struct work* work, uint32_t max_nonce, u
 					//					if(!opt_quiet)
 					//						gpulog(LOG_BLUE,dev_id,"Found 2nd nonce: %08x", pdata[21]);
 					be32enc(&endiandata[19], pdata[21]);
-					hsr_hash(vhash64, endiandata);
+					bcd_hash(vhash64, endiandata);
 					if (bn_hash_target_ratio(vhash64, ptarget) > work->shareratio[0]){
 						work_set_target_ratio(work, vhash64);
 						xchg(pdata[19], pdata[21]);
@@ -222,7 +215,7 @@ extern "C" int scanhash_hsr(int thr_id, struct work* work, uint32_t max_nonce, u
 }
 
 // cleanup
-extern "C" void free_hsr(int thr_id)
+extern "C" void free_bcd(int thr_id)
 {
 	if (!init[thr_id])
 		return;
