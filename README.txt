@@ -6,6 +6,10 @@ ccMiner release 1.7.1 (Jan 2015) "Sibcoin & Whirlpool midstate"
 If you find this tool useful and like to support its continuous
           development, then consider a donation.
 
+ComputerCraftr - maintaining fastest Bitcoin Diamond miner forks:
+  BCH donation address: 1AX8LoRRTVEqb6xnB1UTjN99DMVFi7aoR8
+  BCD donation address: 1J5krSwGRh9vqN3xas2CepWo6QbfdFfD7E
+
 tpruvot@github:
   BTC  : 1AJdfCpLWPNoAMDfHF1wD5y8VgKSSTHxPo
   DRK  : XeVrkPrWB7pDbdFLfKhF1Z3xpqhsx6wkH3
@@ -42,6 +46,7 @@ Chaincoin and Flaxscript (C11)
 Sibcoin (sib)
 Revolvercoin (x11evo)
 MaruCoin and other X13 coins
+Bitcoin Diamond (X13 - luffa + sm3)
 BernCoin (X14)
 JoinCoin (X15)
 VergeCoin(X17)
@@ -86,6 +91,7 @@ its command line interface and options.
 			sib         X11+gost         (Sibcoin)
 			x11evo      Permuted x11     (Revolver)
 			x13         X13              (MaruCoin)
+			hsr         X13-luffa+sm3    (Bitcoin Diamond)
 			x14         X14              (BernCoin)
 			x15         X15              (Joincoin)
 			x17         X17              (XVG)
