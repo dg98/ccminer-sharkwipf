@@ -225,6 +225,7 @@ Options:\n\
 			lyra2v2                      (VertCoin)\n\
 			skein       Skein SHA2       (AUR/DGB/SKC)\n\
 			skein2      Double Skein     (Woodcoin)\n\
+			skunk       Skein Cube Fugue Streebog (Signatum)\n\
 			nist5       NIST5            (Talkcoin/Power)\n\
 			quark       Quark            (Quarkcoin)\n\
 			qubit       Qubit\n\
@@ -2040,6 +2041,9 @@ static void *miner_thread(void *userdata)
 				break;
 			case ALGO_SKEIN2:
 				rc = scanhash_skein2(thr_id, &work, max_nonce, &hashes_done);
+				break;
+			case ALGO_SKUNK:
+				rc = scanhash_skunk(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_NIST5:
 				rc = scanhash_nist5(thr_id, &work, max_nonce, &hashes_done);

@@ -10,6 +10,7 @@ extern "C" {
 }
 
 #include "cuda_helper.h"
+#include "cuda_vectors.h"
 #include "miner.h"
 #include <memory.h>
 
@@ -62,7 +63,7 @@ __device__ __constant__ uint32_t _ALIGN(16) c_x[60];
 
 #define hostGS(a,b,c,d,x) { \
 	const uint32_t idx1 = c_sigma[r][x]; \
-	const uint32_t idx2 = c_sigma[r][x+1]; \
+	const uint32_t idx2 = c_sigma[r][x + 1]; \
 	v[a] += (m[idx1] ^ z[idx2]) + v[b]; \
 	v[d] = ROTR32(v[d] ^ v[a], 16); \
 	v[c] += v[d]; \
@@ -72,7 +73,7 @@ __device__ __constant__ uint32_t _ALIGN(16) c_x[60];
 	v[d] = ROTR32(v[d] ^ v[a], 8); \
 	v[c] += v[d]; \
 	v[b] = ROTR32(v[b] ^ v[c], 7); \
-	}
+}
 
 #define hostGSn(a,b,c,d,x,y) { \
 	v[a] += (m[x] ^ z[y]) + v[b]; \
