@@ -4,6 +4,8 @@
 
 # export PATH="$PATH:/usr/local/cuda/bin/"
 
+CORES="$(grep -c ^processor /proc/cpuinfo)"
+
 make distclean || echo clean
 
 rm -f Makefile.in
@@ -13,4 +15,4 @@ rm -f config.status
 # CFLAGS="-O2" ./configure
 ./configure.sh
 
-make -j 6
+make -j $CORES

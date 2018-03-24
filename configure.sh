@@ -1,12 +1,14 @@
-# possible additional CUDA_CFLAGS
-#-gencode=arch=compute_52,code=\"sm_52,compute_52\"
-#-gencode=arch=compute_50,code=\"sm_50,compute_50\"
-#-gencode=arch=compute_35,code=\"sm_35,compute_35\"
-#-gencode=arch=compute_30,code=\"sm_30,compute_30\"
+#!/bin/sh
 
-#--ptxas-options=\"-v -dlcm=cg\""
+if [ -d '/usr/local/cuda' ]; then
+    with_cuda='=/usr/local/cuda'
+elif [ -d '/opt/cuda' ]; then
+    with_cuda='=/opt/cuda'
+else
+    echo "Cuda dir not found, you may need to add your own --with-cuda flag to ./configure."
+fi
 
 extracflags="-march=native -D_REENTRANT -falign-functions=16 -falign-jumps=16 -falign-labels=16"
 
-CUDA_CFLAGS="-O3 -lineno -Xcompiler -Wall -D_FORCE_INLINES" ./configure CXXFLAGS="-O3 $extracflags" --with-cuda=/usr/local/cuda --with-nvml=libnvidia-ml.so
+CUDA_CFLAGS="-O3 -lineno -Xcompiler -Wall -D_FORCE_INLINES" ./configure CXXFLAGS="-O3 $extracflags" --with-cuda${with_cuda} --with-nvml=libnvidia-ml.so
 
