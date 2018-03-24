@@ -213,14 +213,15 @@ static char const usage[] = "\
 Usage: " PROGRAM_NAME " [OPTIONS]\n\
 Options:\n\
   -a, --algo=ALGO       specify the hash algorithm to use\n\
-		  	blake       Blake256-14rounds(SFR)\n\
-		  	decred      Blake256-14rounds(DCR)\n\
-  			blakecoin   Blake256-8rounds (BLC)\n\
+			blake       Blake256-14rounds(SFR)\n\
+			decred      Blake256-14rounds(DCR)\n\
+			blakecoin   Blake256-8rounds (BLC)\n\
 			vcash       Blake256-8rounds (XVC)\n\
-			blake2s	    Blake2s          (NEVA/XVG)\n\
+			blake2s     Blake2s          (NEVA/XVG)\n\
 			keccak      keccak256        (Maxcoin)\n\
 			hsr         X13+SM3          (Hshare)\n\
 			bcd         X13-luffa+sm3    (Bitcoin Diamond)\n\
+			gostd       GOSTd            (GOSTcoin)\n\
 			lyra2                        (LyraBar)\n\
 			lyra2v2                      (VertCoin)\n\
 			skein       Skein SHA2       (AUR/DGB/SKC)\n\
@@ -1942,6 +1943,7 @@ static void *miner_thread(void *userdata)
 				case ALGO_X11EVO:
 				case ALGO_X13:
 				case ALGO_WHIRLPOOL:
+				case ALGO_GOSTD:
 					minmax = 0x400000;
 					break;
 				case ALGO_X14:
@@ -2077,7 +2079,10 @@ static void *miner_thread(void *userdata)
 				break;
 			case ALGO_VELTOR:
 				rc = scanhash_veltor(thr_id, &work, max_nonce, &hashes_done);
-				break;			
+				break;
+			case ALGO_GOSTD:
+				rc = scanhash_gostd(thr_id, &work, max_nonce, &hashes_done);
+			break;			
 			case ALGO_X13:
 				rc = scanhash_x13(thr_id, &work, max_nonce, &hashes_done);
 				break;

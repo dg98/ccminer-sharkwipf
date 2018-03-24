@@ -54,6 +54,7 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 			x11/x11.cu x11/x11evo.cu x11/c11.cu \
 			streebog/cuda_streebog.cu streebog/cuda_keccak_streebog.cu \
 			streebog/sib.cu streebog/veltor.cu \
+			gost/gost.cu gost/cuda_gosthash.cu \
 			x13/cuda_x13_hamsi_fugue512.cu \
 			x13/cuda_x13_fugue512.cu x13/cuda_x13_hamsi512.cu \
 			x13/x13.cu \

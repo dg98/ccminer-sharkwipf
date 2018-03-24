@@ -11,6 +11,7 @@ enum sha_algos {
 	ALGO_BLAKECOIN,
 	ALGO_BLAKE2S,
 //	ALGO_WHIRLPOOLX,
+	ALGO_GOSTD,
 	ALGO_KECCAK,
 	ALGO_HSR,
 	ALGO_BCD,
@@ -50,6 +51,7 @@ static const char *algo_names[] = {
 	"blakecoin",
 	"blake2s",
 //	"whirlpoolx",
+	"gostd",
 	"keccak",
 	"hsr",
 	"bcd",
@@ -109,6 +111,8 @@ static inline int algo_to_int(char* arg)
 			i = ALGO_VELTOR;
 		else if (!strcasecmp("whirl", arg))
 			i = ALGO_WHIRLPOOL;
+		else if (!strcasecmp("gost", arg))
+			i = ALGO_GOSTD;
 		else
 			i = -1;
 	}
