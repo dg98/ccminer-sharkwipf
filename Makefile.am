@@ -87,11 +87,16 @@ ccminer_LDFLAGS  = $(PTHREAD_FLAGS) @CUDA_LDFLAGS@
 ccminer_LDADD    = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @CUDA_LIBS@ @PCILIB@ @OPENMP_CFLAGS@ @LIBS@ $(nvml_libs)
 ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ @PCIFLAGS@ @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES) $(nvml_defs)
 
-nvcc_ARCH = -gencode=arch=compute_52,code=\"sm_52,compute_52\"
-nvcc_ARCH += -gencode=arch=compute_50,code=\"sm_50,compute_50\"
-#nvcc_ARCH = -gencode=arch=compute_35,code=\"sm_35,compute_35\"
+
+nvcc_ARCH  =
+#nvcc_ARCH += -gencode=arch=compute_20,code=\"sm_20,compute_20\"
 #nvcc_ARCH += -gencode=arch=compute_30,code=\"sm_30,compute_30\"
-#nvcc_ARCH += -gencode=arch=compute_20,code=\"sm_21,compute_20\"
+nvcc_ARCH += -gencode=arch=compute_50,code=\"sm_50,compute_50\"
+nvcc_ARCH += -gencode=arch=compute_52,code=\"sm_52,compute_52\"
+nvcc_ARCH += -gencode=arch=compute_60,code=\"sm_60,compute_60\"
+nvcc_ARCH += -gencode=arch=compute_61,code=\"sm_61,compute_61\"
+nvcc_ARCH += -gencode=arch=compute_62,code=\"sm_62,compute_62\"
+nvcc_ARCH += -gencode=arch=compute_70,code=\"sm_70,compute_70\"
 
 nvcc_FLAGS = $(nvcc_ARCH) @CUDA_INCLUDES@ -I. @CUDA_CFLAGS@
 nvcc_FLAGS += $(JANSSON_INCLUDES) --ptxas-options="-v" -lineinfo
