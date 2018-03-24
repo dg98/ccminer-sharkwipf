@@ -2,6 +2,9 @@
 ccminer
 *.o
 
+ccminer-*.sh
+custombuild.sh
+
 autom4te.cache
 .deps
 
