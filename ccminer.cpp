@@ -224,6 +224,7 @@ Options:\n\
 			gostd       GOSTd            (GOSTcoin)\n\
 			lyra2                        (LyraBar)\n\
 			lyra2v2                      (VertCoin)\n\
+			lyra2z                       (ZeroCoin)\n\
 			skein       Skein SHA2       (AUR/DGB/SKC)\n\
 			skein2      Double Skein     (Woodcoin)\n\
 			skunk       Skein Cube Fugue Streebog (Signatum)\n\
@@ -1479,6 +1480,7 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 		case ALGO_KECCAK:
 		case ALGO_LBRY:
 		case ALGO_LYRA2v2:
+		case ALGO_LYRA2Z:
 			work_set_target(work, sctx->job.diff / (256.0 * opt_difficulty));
 			break;
 		case ALGO_LYRA2:
@@ -1934,6 +1936,7 @@ static void *miner_thread(void *userdata)
 				case ALGO_SIB:
 				case ALGO_VELTOR:
 				case ALGO_LYRA2:
+				case ALGO_LYRA2Z:
 					minmax = 0x80000;
 					break;
 				case ALGO_C11:
@@ -2036,6 +2039,9 @@ static void *miner_thread(void *userdata)
 				rc = scanhash_lyra2(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_LYRA2v2:
+				rc = scanhash_lyra2v2(thr_id, &work, max_nonce, &hashes_done);
+				break;
+			case ALGO_LYRA2Z:
 				rc = scanhash_lyra2v2(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_SKEIN:

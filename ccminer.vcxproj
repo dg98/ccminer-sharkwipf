@@ -256,8 +256,8 @@
     <ClCompile Include="sysinfos.cpp" />
     <ClCompile Include="crc32.c" />
     <ClCompile Include="lyra2\Lyra2.c" />
+    <ClCompile Include="lyra2\Lyra2Z.c" />
     <ClInclude Include="cuda_vectors.h" />
-    <ClInclude Include="lyra2\cuda_lyra2_sm2.cuh" />
     <ClInclude Include="neoscrypt\neoscrypt.h" />
     <ClInclude Include="skein\skein_header.h" />
     <ClInclude Include="sph\blake2b.h" />
@@ -337,8 +337,8 @@
     <ClInclude Include="sph\sph_whirlpool.h" />
     <ClInclude Include="uint256.h" />
     <ClInclude Include="lyra2\Lyra2.h" />
+    <ClInclude Include="lyra2\Lyra2Z.h" />
     <ClInclude Include="lyra2\Sponge.h" />
-    <ClInclude Include="lyra2\cuda_lyra2v2_sm3.cuh" />
     <ClInclude Include="x11\cuda_x11.h" />
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +403,9 @@
     <CudaCompile Include="lyra2\cuda_lyra2.cu" />
     <CudaCompile Include="lyra2\lyra2REv2.cu" />
     <CudaCompile Include="lyra2\cuda_lyra2v2.cu" />
+    <CudaCompile Include="lyra2\lyra2Z.cu" />
+    <CudaCompile Include="lyra2\cuda_lyra2Z.cu" />
+    <ClInclude Include="lyra2\cuda_lyra2Z_sm5.cuh" />
     <ClInclude Include="x11\cuda_x11_aes.cuh" />
     <CudaCompile Include="x11\cuda_x11_cubehash512.cu" />
     <CudaCompile Include="x11\cuda_x11_cubehash_shavite_512.cu" />

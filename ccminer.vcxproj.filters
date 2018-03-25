@@ -225,6 +225,9 @@
     <ClCompile Include="lyra2\Lyra2.c">
       <Filter>Source Files\sph</Filter>
     </ClCompile>
+    <ClCompile Include="lyra2\Lyra2Z.c">
+          <Filter>Source Files\sph</Filter>
+    </ClCompile>
     <ClCompile Include="bench.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -401,6 +404,9 @@
     <ClInclude Include="lyra2\Lyra2.h">
       <Filter>Header Files\lyra2</Filter>
     </ClInclude>
+    <ClInclude Include="lyra2\Lyra2Z.h">
+          <Filter>Header Files\lyra2</Filter>
+    </ClInclude>
     <ClInclude Include="lyra2\Sponge.h">
       <Filter>Header Files\lyra2</Filter>
     </ClInclude>
@@ -421,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="lyra2\cuda_lyra2_sm2.cuh">
       <Filter>Source Files\CUDA\lyra2</Filter>
+    </ClInclude>
+        <ClInclude Include="lyra2\cuda_lyra2Z_sm5.cuh">
+          <Filter>Source Files\CUDA\lyra2</Filter>
     </ClInclude>
     <ClInclude Include="cuda_vectors.h">
       <Filter>Source Files\CUDA</Filter>
@@ -539,6 +548,12 @@
       <Filter>Source Files\CUDA\lyra2</Filter>
     </CudaCompile>
     <CudaCompile Include="lyra2\lyra2REv2.cu">
+      <Filter>Source Files\CUDA\lyra2</Filter>
+    </CudaCompile>
+    <CudaCompile Include="lyra2\cuda_lyra2Z.cu">
+      <Filter>Source Files\CUDA\lyra2</Filter>
+    </CudaCompile>
+    <CudaCompile Include="lyra2\lyra2Z.cu">
       <Filter>Source Files\CUDA\lyra2</Filter>
     </CudaCompile>
     <CudaCompile Include="nist5\cuda_nist5.cu">

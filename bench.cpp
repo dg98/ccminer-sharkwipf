@@ -52,6 +52,7 @@ void algo_free_all(int thr_id){
 	free_bcd(thr_id);
 	free_lyra2(thr_id);
 	free_lyra2v2(thr_id);
+	free_lyra2Z(thr_id);
 //	free_whirlx(thr_id);
 	free_skeincoin(thr_id);
 	free_skein2(thr_id);
