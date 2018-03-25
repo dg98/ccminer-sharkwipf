@@ -93,43 +93,47 @@ extern "C" int scanhash_lyra2Z(int thr_id, struct work* work, uint32_t max_nonce
     lyra2Z_setTarget(ptarget);
 
     do {
+        uint32_t foundNonces[2] = { 0, 0 };
+
         int order = 0;
 
         blake256_cpu_hash_80(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
 
         *hashes_done = pdata[19] - first_nonce + throughput;
 
-        work->nonces[0] = lyra2Z_cpu_hash_32(thr_id, throughput, pdata[19], d_hash[thr_id], gtx750ti);
+        foundNonces[0] = lyra2Z_cpu_hash_32(thr_id, throughput, pdata[19], d_hash[thr_id], gtx750ti);
 
-        if (work->nonces[0] != UINT32_MAX)
+        if (foundNonces[0] != UINT32_MAX)
         {
+            const uint32_t startNounce = pdata[19];
             uint32_t _ALIGN(64) vhash[8];
 
-            be32enc(&endiandata[19], work->nonces[0]);
+            be32enc(&endiandata[19], startNounce + foundNonces[0]);
             lyra2Z_hash(vhash, endiandata);
 
             if (vhash[7] <= ptarget[7] && fulltest(vhash, ptarget)) {
-                work->valid_nonces = 1;
-                work->nonces[1] = lyra2Z_getSecNonce(thr_id, 1);
+                int res = 1;
+                foundNonces[1] = lyra2Z_getSecNonce(thr_id, 1);
                 work_set_target_ratio(work, vhash);
-                pdata[19] = work->nonces[0] + 1;
-                if (work->nonces[1] != UINT32_MAX)
+                pdata[19] = startNounce + foundNonces[0];
+                // check for another one
+                if (foundNonces[1] != UINT32_MAX)
                 {
-                    be32enc(&endiandata[19], work->nonces[1]);
+                    be32enc(&endiandata[19], (pdata[19] - foundNonces[ 0]) + foundNonces[1]);
                     lyra2Z_hash(vhash, endiandata);
                     if (vhash[7] <= ptarget[7] && fulltest(vhash, ptarget)) {
                         bn_set_target_ratio(work, vhash, 1);
-                        work->valid_nonces++;
+                        res++;
                     }
-                    pdata[19] = max(work->nonces[0], work->nonces[1]) + 1; // cursor
+                    pdata[19] = max(foundNonces[0], foundNonces[1]) + 1; // cursor
                 }
-                return work->valid_nonces;
+                return res;
             }
             else if (vhash[7] > ptarget[7]) {
                 gpu_increment_reject(thr_id);
                 if (!opt_quiet)	gpulog(LOG_WARNING, thr_id,
                                           "result for %08x does not validate on CPU!", work->nonces[0]);
-                pdata[19] = work->nonces[0];
+                pdata[19] = foundNonces[0];
                 continue;
             }
         }
