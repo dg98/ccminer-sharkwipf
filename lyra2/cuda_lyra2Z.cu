@@ -740,7 +740,7 @@ void lyra2Z_gpu_hash_32_1(uint32_t threads, uint32_t startNounce, uint2 *g_hash)
 
 __global__
 __launch_bounds__(TPB52, 1)
-void lyra2Z_gpu_hash_32_2(uint32_t threads, uint32_t startNounce, uint64_t *g_hash)
+void lyra2Z_gpu_hash_32_2(uint32_t threads, uint32_t startNounce, uint2 *g_hash)
 {
 	const uint32_t thread = blockDim.y * blockIdx.x + threadIdx.y;
 
