@@ -89,15 +89,13 @@ extern "C" int scanhash_lyra2Z(int thr_id, struct work* work, uint32_t max_nonce
     for (int k=0; k < 20; k++)
         be32enc(&endiandata[k], pdata[k]);
 
-    blake256_cpu_setBlock_80(pdata);
+    blake256_14round_cpu_setBlock_80(pdata);
     lyra2Z_setTarget(ptarget);
 
     do {
         uint32_t foundNonces[2] = { 0, 0 };
 
-        int order = 0;
-
-        blake256_cpu_hash_80(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
+        blake256_14round_cpu_hash_80(throughput, pdata[19], d_hash[thr_id]);
 
         *hashes_done = pdata[19] - first_nonce + throughput;
 
