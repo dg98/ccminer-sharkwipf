@@ -9,9 +9,9 @@ extern "C" {
 static uint64_t* d_hash[MAX_GPUS];
 static uint64_t* d_matrix[MAX_GPUS];
 
-extern void blake256_cpu_init(int thr_id, uint32_t threads);
-extern void blake256_cpu_hash_80(const int thr_id, const uint32_t threads, const uint32_t startNonce, uint64_t *Hash, int order);
-extern void blake256_cpu_setBlock_80(uint32_t *pdata);
+//extern void blake256_cpu_init(int thr_id, uint32_t threads);
+extern void blake256_14round_cpu_hash_80(const uint32_t threads, const uint32_t startNonce, uint2* d_Hash);
+extern void blake256_14round_cpu_setBlock_80(const uint32_t *pdata);
 
 extern void lyra2Z_cpu_init(int thr_id, uint32_t threads, uint64_t *d_matrix);
 extern void lyra2Z_cpu_init_sm2(int thr_id, uint32_t threads);
@@ -70,7 +70,7 @@ extern "C" int scanhash_lyra2Z(int thr_id, struct work* work, uint32_t max_nonce
 
         gpulog(LOG_INFO, thr_id, "Intensity set to %g, %u cuda threads", throughput2intensity(throughput), throughput);
 
-        blake256_cpu_init(thr_id, throughput);
+        //blake256_cpu_init(thr_id, throughput);
 
         if (device_sm[dev_id] >= 350)
         {
