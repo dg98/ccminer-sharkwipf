@@ -2042,7 +2042,7 @@ static void *miner_thread(void *userdata)
 				rc = scanhash_lyra2v2(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_LYRA2Z:
-				rc = scanhash_lyra2v2(thr_id, &work, max_nonce, &hashes_done);
+				rc = scanhash_lyra2Z(thr_id, &work, max_nonce, &hashes_done);
 				break;
 			case ALGO_SKEIN:
 				rc = scanhash_skeincoin(thr_id, &work, max_nonce, &hashes_done);
