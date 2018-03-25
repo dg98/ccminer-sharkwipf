@@ -869,7 +869,7 @@ void lyra2Z_gpu_hash_32_3(uint32_t threads, uint32_t startNounce, uint2 *g_hash,
 __device__ void* DMatrix;
 #endif
 __global__ void lyra2Z_gpu_hash_32_1(uint32_t threads, uint32_t startNounce, uint2 *g_hash) {}
-__global__ void lyra2Z_gpu_hash_32_2(uint32_t threads, uint32_t startNounce, uint64_t *g_hash) {}
+__global__ void lyra2Z_gpu_hash_32_2(uint32_t threads, uint32_t startNounce, uint2 *g_hash) {}
 __global__ void lyra2Z_gpu_hash_32_3(uint32_t threads, uint32_t startNounce, uint2 *g_hash, uint32_t *resNonces) {}
 #endif
 
