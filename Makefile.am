@@ -22,7 +22,7 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 			ccminer.cpp pools.cpp util.cpp bench.cpp bignum.cpp \
 			api.cpp hashlog.cpp nvml.cpp stats.cpp sysinfos.cpp cuda.cpp \
 			Algo256/decred.cu \
-			Algo256/blake256_8round.cu Algo256/blake256_14round.cu Algo256/cuda_blake256_14round.cu Algo256/cuda_blake256.cu \
+			Algo256/blake256_8round.cu Algo256/blake256_14round.cu Algo256/cuda_blake256_14round.cu \
 			Algo256/cuda_keccak256.cu Algo256/keccak256.cu \
 			Algo256/cuda_skein256.cu \
 			Algo256/cuda_groestl256.cu \
