@@ -874,10 +874,10 @@ __global__ void lyra2Z_gpu_hash_32_3(uint32_t threads, uint32_t startNounce, uin
 #endif
 
 __host__
-void lyra2Z_cpu_init(int thr_id, uint32_t threads, uint64_t *d_matrix)
+void lyra2Z_cpu_init(int thr_id, uint32_t threads, uint2 *d_matrix)
 {
     // just assign the device pointer allocated in main loop
-    cudaMemcpyToSymbol(DMatrix, &d_matrix, sizeof(uint64_t*), 0, cudaMemcpyHostToDevice);
+    cudaMemcpyToSymbol(DMatrix, &d_matrix, sizeof(uint2*), 0, cudaMemcpyHostToDevice);
     cudaMalloc(&d_GNonces[thr_id], 2 * sizeof(uint32_t));
     cudaMallocHost(&h_GNonces[thr_id], 2 * sizeof(uint32_t));
 }
@@ -908,7 +908,7 @@ void lyra2Z_setTarget(const void *pTargetIn)
 }
 
 __host__
-        uint32_t lyra2Z_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNounce, uint64_t *d_hash, bool gtx750ti)
+        uint32_t lyra2Z_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNounce, uint2* d_hash, bool gtx750ti)
 {
     uint32_t result = UINT32_MAX;
     cudaMemset(d_GNonces[thr_id], 0xff, 2 * sizeof(uint32_t));
@@ -932,11 +932,11 @@ __host__
 
     if (device_sm[dev_id] >= 520)
     {
-        lyra2Z_gpu_hash_32_1 <<< grid2, block2 >>> (threads, startNounce, (uint2*)d_hash);
+        lyra2Z_gpu_hash_32_1 <<< grid2, block2 >>> (threads, startNounce, d_hash);
 
         lyra2Z_gpu_hash_32_2 <<< grid1, block1, 24 * (8 - 0) * sizeof(uint2) * tpb >>> (threads, startNounce, d_hash);
 
-        lyra2Z_gpu_hash_32_3 <<< grid2, block2 >>> (threads, startNounce, (uint2*)d_hash, d_GNonces[thr_id]);
+        lyra2Z_gpu_hash_32_3 <<< grid2, block2 >>> (threads, startNounce, d_hash, d_GNonces[thr_id]);
     }
     else if (device_sm[dev_id] == 500 || device_sm[dev_id] == 350)
     {
@@ -949,11 +949,11 @@ __host__
             // 10Warpに調整のため、6144バイト確保する
             shared_mem = 6144;
 
-        lyra2Z_gpu_hash_32_1_sm5 <<< grid2, block2 >>> (threads, startNounce, (uint2*)d_hash);
+        lyra2Z_gpu_hash_32_1_sm5 <<< grid2, block2 >>> (threads, startNounce, d_hash);
 
-        lyra2Z_gpu_hash_32_2_sm5 <<< grid1, block1, shared_mem >>> (threads, startNounce, (uint2*)d_hash);
+        lyra2Z_gpu_hash_32_2_sm5 <<< grid1, block1, shared_mem >>> (threads, startNounce, d_hash);
 
-        lyra2Z_gpu_hash_32_3_sm5 <<< grid2, block2 >>> (threads, startNounce, (uint2*)d_hash, d_GNonces[thr_id]);
+        lyra2Z_gpu_hash_32_3_sm5 <<< grid2, block2 >>> (threads, startNounce, d_hash, d_GNonces[thr_id]);
     }
     else
         lyra2Z_gpu_hash_32_sm2 <<< grid3, block3 >>> (threads, startNounce, d_hash, d_GNonces[thr_id]);
