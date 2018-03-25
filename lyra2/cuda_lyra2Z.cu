@@ -129,7 +129,7 @@ __constant__ static uint2 blake2b_IV_sm2[8] = {
 };
 
 __global__ __launch_bounds__(TPB30, 1)
-void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint64_t *g_hash, uint32_t *resNonces)
+void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint2 *g_hash, uint32_t *resNonces)
 {
     uint32_t thread = (blockDim.x * blockIdx.x + threadIdx.x);
     const uint2 Mask[8] = {
@@ -269,7 +269,7 @@ void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint64_t *g_
     } //thread
 }
 #else
-__global__ void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint64_t *g_hash, uint32_t *resNonces) {}
+__global__ void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint2 *g_hash, uint32_t *resNonces) {}
 #endif
 
 #if __CUDA_ARCH__ > 500
