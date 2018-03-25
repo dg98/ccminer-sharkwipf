@@ -130,9 +130,9 @@ extern "C" int scanhash_lyra2Z(int thr_id, struct work* work, uint32_t max_nonce
                 return res;
             }
             else if (vhash[7] > ptarget[7]) {
-                gpu_increment_reject(thr_id);
+                //gpu_increment_reject(thr_id);
                 if (!opt_quiet)	gpulog(LOG_WARNING, thr_id,
-                                          "result for %08x does not validate on CPU!", work->nonces[0]);
+                                          "result for %08x does not validate on CPU!", foundNonces[0]);
                 pdata[19] = foundNonces[0];
                 continue;
             }
