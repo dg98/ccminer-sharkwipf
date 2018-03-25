@@ -144,7 +144,7 @@ void lyra2Z_gpu_hash_32_sm2(uint32_t threads, uint32_t startNounce, uint2 *g_has
 
 #pragma unroll
         for (int i = 0; i<4; i++) {
-            LOHI(state[i].x, state[i].y, g_hash[threads*i + thread]);
+            //LOHI(state[i].x, state[i].y, g_hash[threads*i + thread]);
         } //password
 
 #pragma unroll
